@@ -1,5 +1,5 @@
 Usecase: ingame, obs-overlay
-Name: SonataOverlay
+Name: EvosOverlay
 Version: 1.22
 Author: Paraliyzed_evo
 CompatibleWith: tosu
