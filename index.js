@@ -609,7 +609,7 @@ socket.commands(async (data) => {
         }
         if (cache['beatmap.stats.bpm.common'] !== beatmap.stats.bpm.common) {
             cache['beatmap.stats.bpm.common'] = beatmap.stats.bpm.common;
-            StatsBPM.innerHTML = cache['beatmap.stats.bpm.common'] + 'BPM';
+            StatsBPM.innerHTML = Math.round(cache['beatmap.stats.bpm.common']) + 'BPM';
         }
         if (cache['beatmap.stats.maxCombo'] !== beatmap.stats.maxCombo) {
             cache['beatmap.stats.maxCombo'] = beatmap.stats.maxCombo;
