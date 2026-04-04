@@ -26,6 +26,7 @@ function setupTosuConnectionHandlers() {
       ws.onclose = function(event) {
         showTosuWarning();
         if (originalOnClose) originalOnClose.call(this, event);
+        setTimeout(attachHandlers, 100);
       };
 
       if (ws.readyState === WebSocket.OPEN) {
