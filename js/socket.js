@@ -1,11 +1,12 @@
 class WebSocketManager {
-  constructor(host) {
+  constructor(host, callbacks) {
     this.version = '0.1.5';
 
     if (host) {
       this.host = host;
     }
 
+    this.callbacks = callbacks || {};
     this.createConnection = this.createConnection.bind(this);
 
     /**
@@ -22,6 +23,7 @@ class WebSocketManager {
 
     this.sockets[url].onopen = () => {
       console.log(`[OPEN] ${url}: Connected`);
+      if (this.callbacks.onOpen) this.callbacks.onOpen();
 
       if (INTERVAL) clearInterval(INTERVAL);
       if (Array.isArray(filters)) {
@@ -30,7 +32,9 @@ class WebSocketManager {
     };
 
     this.sockets[url].onclose = (event) => {
+      let testerrorcode = event.reason !== `` ? event.reason : `TOSU_PROCESS_NOT_FOUND`
       console.log(`[CLOSED] ${url}: ${event.reason}`);
+      if (this.callbacks.onClose) this.callbacks.onClose(testerrorcode);
 
       delete this.sockets[url];
       INTERVAL = setTimeout(() => {
@@ -136,7 +140,14 @@ class WebSocketManager {
    */
   async getBeatmapOsuFile(file_path) {
     try {
-      const request = await fetch(`http://${this.host}/files/beatmap/${file_path}`, {
+      if (typeof file_path != 'object') {
+        return {
+          error: 'Wrong argument type, should be object with params'
+        };
+      };
+
+
+      const request = await fetch(`${this.host}/files/beatmap/${file_path}`, {
         method: "GET",
       });
 
