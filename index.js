@@ -168,7 +168,7 @@ socket.commands((data) => {
         message
       );
 
-      updateCache('StreamerModeEnabled', message.StreamerModeEnabled, (enabled) => {setStyle(resultRecorder, 'opacity', enabled ? '0' : '1')});
+      updateCache('StreamerModeEnabled', message.StreamerModeEnabled, (enabled) => {setStyle(resultRecorder, 'opacity', enabled ? '0' : '1'); setStyle(recorderContainer, 'display', enabled ? 'none' : 'block')});
       updateCache('LBEnabled', message.LBEnabled, (enabled) => {setStyle(leaderboardP, 'display', enabled ? 'block' : 'none')});
       updateCache('HidePanel', message.HidePanel);
       updateCache('HideBottom', message.HideBottom, (hidden) => {setStyle(gpbottom, 'display', hidden ? 'none' : 'flex')});
@@ -633,18 +633,19 @@ function renderSlots() {
         if (cache['data.menu.state'] === 2) {
             applyInterfaceVisibility(!cache['showInterface']);
 
-            if (cache['LBEnabled'] === true) {
+            if (cache['LBEnabled']) {
               if (cache['LBOptions'] === "Selected Mods" || cache['LBOptions'] === "Global") { setupMapScores(cache['beatmap.id']) }
               else if (cache['LBOptions'] === "Local" && leaderboard && leaderboard.length !== 0) { setupLocalScores() };
             } else { LBReset() };
 
-              if (cache['LBEnabled'] === true) {
-                  setHTML(lbcpPosition, `${playerPosition}`);
-                  setStyle(leaderboardP, 'opacity', 1);
-              } else {
-                  setHTML(lbcpPosition, `0`);
-                  setStyle(leaderboardP, 'opacity', 0);
-              };
+            if (cache['LBEnabled']) {
+                setHTML(lbcpPosition, `${playerPosition}`);
+                setStyle(leaderboardP, 'opacity', 1);
+            } else {
+                setHTML(lbcpPosition, `0`);
+                setStyle(leaderboardP, 'opacity', 0);
+            };
+
             if (currentplayerCont)
                 lbcpPosition.setAttribute('class', `positions N${playerPosition}`);
             
@@ -900,7 +901,21 @@ function renderSlots() {
     } catch (error) {
         console.log(error);
     }
-  });
+  }, [
+      'server',
+      'leaderboard',
+      'client',
+      'resultsScreen',
+      'play',
+      'beatmap',
+      {field: 'state', keys: ['number']},
+      {field: 'settings', keys: ['interfaceVisible', {field: 'background', keys: ['dim']}]},
+      {field: 'performance', keys: ['graph']},
+      {field: 'folders', keys: ['beatmap']},
+      {field: 'files', keys: ['background']},
+      {field: 'directPath', keys: ['beatmapBackground']},
+      {field: 'profile', keys: ['id', 'name', 'pp', 'globalRank', 'countryCode', 'mode']}
+  ]);
 
 socket.api_v2_precise((data) => {
     try {
@@ -1011,7 +1026,7 @@ socket.api_v2_precise((data) => {
     } catch (err) {
       console.log(err);
     }
-});
+}, ['hitErrors', 'keys']);
 
 async function setupUser(name) {
   let userData = await getUserDataSet(name, cache['mode']);

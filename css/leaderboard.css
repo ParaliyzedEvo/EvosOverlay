@@ -138,12 +138,66 @@
 .modslb {
 	width: 40px;
 	height: 27px;
-    border-radius: 6px;
+    border-radius: 5px;
     object-fit: cover;
-	background-size: 105%;
+	background-size: 90%;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     margin-right: -15px;
+    background-color: #161616;
+    outline: 4px solid #161616;
+    border: 2px solid #ffffff;
+}
+
+.HR {
+    background-color: #190505;
+    outline: 4px solid #190505;
+    border: 2px solid #ffa1a1;
+}
+.NC {
+    background-color: #170519;
+    outline: 4px solid #170519;
+    border: 2px solid #f1a1ff;
+}
+.HD {
+    background-color: #191505;
+    outline: 4px solid #191505;
+    border: 2px solid #fcf5a5;
+}
+.DT {
+    background-color: #120519;
+    outline: 4px solid #120519;
+    border: 2px solid #daa1ff;
+}
+.SD {
+    background-color: #190e05;
+    outline: 4px solid #190e05;
+    border: 2px solid #ffd8a1;
+}
+.PF {
+    background-color: #191705;
+    outline: 4px solid #191705;
+    border: 2px solid #fffca1;
+}
+.HT {
+    background-color: #1e1e1e;
+    outline: 4px solid #1e1e1e;
+    border: 2px solid #a1a1a1;
+}
+.NF {
+    background-color: #050f19;
+    outline: 4px solid #050f19;
+    border: 2px solid #a1e3ff;
+}
+.SO {
+    background-color: #19050f;
+    outline: 4px solid #19050f;
+    border: 2px solid #c13b87;
+}
+.EZ {
+    background-color: #051911;
+    outline: 4px solid #051911;
+    border: 2px solid #a1ffd2;
 }
 
 .N3,

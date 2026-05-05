@@ -23,14 +23,16 @@
 }
 .mods {
 	width: 66px;
-	height: 50px;
+	height: 48px;
 	background-size: 100%;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    border-radius: 6px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+    border-radius: 10px;
     object-fit: cover;
     margin-right: -15px;
+    background-color: #161616;
+    outline: 4px solid #161616;
+    border: 2px solid #ffffff;
 }
 #PlayerFlag {
     width: 60px;
@@ -376,64 +378,6 @@
     background-image: url(../static/adbanner/adimg.jpg);
     background-position: 50% 50%;
     background-size: cover;
-}
-
-/* Mods Color */
-.HR {
-    background-color: #f67b7a;
-    box-shadow: 0 4px 0#924848;
-}
-.NC {
-    background-color: #8262c5;
-    box-shadow: 0 4px 0#4f3c79;
-}
-.HD {
-    background-color: #f6de77;
-    box-shadow: 0 4px 0#776c3a;
-}
-.DT {
-    background-color: #8e84fb;
-    box-shadow: 0 4px 0#403c72;
-}
-.SD {
-    background-color: #887c47;
-    box-shadow: 0 4px 0#6b6237;
-}
-.PF {
-    background-color: #ffe08d;
-    box-shadow: 0 4px 0#837348;
-}
-.HT {
-    background-color: #424242;
-    box-shadow: 0 4px 0#333333;
-}
-.NF {
-    background-color: #84c1fb;
-    box-shadow: 0 4px 0#557da1;
-}
-.SO {
-    background-color: #850000;
-    box-shadow: 0 4px 0#520000;
-}
-.FL {
-    background-color: #8a4545;
-    box-shadow: 0 4px 0#572c2c;
-}
-.NM {
-    background-color: #888888;
-    box-shadow: 0 4px 0#555555;
-}
-.TD {
-    background-color: #4bffd8;
-    box-shadow: 0 4px 0#4bffd8;
-}
-.EZ {
-    background-color: #1ceb82;
-    box-shadow: 0 4px 0#139e58;
-}
-.TP,.AT,.RX,.AP,.CL {
-    background-color: #13163b;
-    box-shadow: 0 4px 0#070816;
 }
 
 /* Ranking Color */
