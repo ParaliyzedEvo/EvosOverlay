@@ -233,6 +233,48 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+#GameStatusOverlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+}
+#PlayFocused {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	font-size: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+}
+#NoFocusBox {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 15px;
+	padding-right: 20px;
+}
+#NoFocusBorder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+#NoFocusImg {
+	width: 150px;
+	height: 150px;
+	background-size: cover;
+	background-position: 50% 50%;
+	border-radius: 10px;
+	background-repeat: no-repeat;
+	background-image: url(../static/OutFocus.jpg);
+}
 /* -- ELEMENT OUTSIDE MAIN -- */
 #smallStats {
     position: absolute;

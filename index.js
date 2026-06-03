@@ -336,6 +336,11 @@ socket.commands(async (data) => {
         }
       }
 
+      if (cache['HideGameStatus'] !== message['HideGameStatus']) {
+        cache['HideGameStatus'] = message['HideGameStatus'];
+        GameStatusOverlay.style.opacity = message['HideGameStatus'] ? '0' : '1';
+    }
+
       if (cache['HidePanel'] !== message['HidePanel']) {
         cache['HidePanel'] = message['HidePanel'];
         if (message['HidePanel'] === true) {
@@ -458,7 +463,7 @@ socket.commands(async (data) => {
     }
   });
   
-  socket.api_v2(({ state, settings, performance, resultsScreen, play, beatmap, folders, files, directPath, client, userProfile}) => {
+  socket.api_v2(({ state, settings, performance, resultsScreen, play, beatmap, folders, files, directPath, client, userProfile, game}) => {
     try {
         const requiredElements = [
             'gptop', 'gpbottom', 'URCont', 'avgHitError', 'leaderboard',
@@ -501,6 +506,10 @@ socket.commands(async (data) => {
         }
         if (cache['hp.normal'] !== play.healthBar.normal.toFixed(2)) {
             cache['hp.normal'] = play.healthBar.normal.toFixed(2);
+        }
+        if (cache['game.focused'] !== game.focused) {
+            cache['game.focused'] = game.focused;
+            PlayFocused.style.opacity = !game.focused && (cache['data.menu.state'] == 2 || cache['data.menu.state'] == 7 || game.paused && cache['data.menu.state'] == 2 || cache['data.menu.state'] == 0 || cache['data.menu.state'] == 22) ? '0' : '1';
         }
         if (cache['play.name'] !== play.playerName) {
             cache['play.name'] = play.playerName;
@@ -1380,6 +1389,19 @@ socket.commands(async (data) => {
                   ]
               }
           ]
+      },
+      {
+        field: 'data',
+        keys: [
+            {
+                field: 'menu',
+                keys: ['state']
+            }
+        ]
+      },
+      {
+        field: 'game',
+        keys: ['focused']
       },
       {
           field: 'folders',
