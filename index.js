@@ -74,8 +74,6 @@ function calculate_od(temp) {
     error_h300 = 83 - (6 * temp);
     error_h100 = 145 - (8 * temp);
     error_h50 = 199.5 - (10 * temp);
-    l100.style.width = `${error_h100 * 3.3}px`;
-    l300.style.width = `${error_h300 * 3.3}px`;
 }
 
 const spaceit = (text) => text.toLocaleString().replace(/,/g, ' ');
@@ -674,6 +672,9 @@ function renderSlots() {
             ODText.innerHTML = cache['beatmap.stats.od.converted'].toFixed(2);
             calculate_od(cache['beatmap.stats.od.converted']);
             URbar.style.width = `${(error_h50 * 3.3) + 40}px`;
+            l50.style.width = `${error_h50 * 3.3}px`;
+            l100.style.width = `${error_h100 * 3.3}px`;
+            l300.style.width = `${error_h300 * 3.3}px`;
         }
         if (cache['beatmap.stats.hp.converted'] !== beatmap.stats.hp.converted) {
             cache['beatmap.stats.hp.converted'] = beatmap.stats.hp.converted;
@@ -933,7 +934,6 @@ function renderSlots() {
 
         combo_wrapper.style.transform = `translateX(${cache['beatmap.stats.od.converted'] * 12.5}px)`;
         pp_wrapper.style.transform = `translateX(-${cache['beatmap.stats.od.converted'] * 12.5}px)`;
-        l50.style.width = `${error_h50 * 3.3}px`;
 
         if (cache['data.menu.state'] === 2 || cache['data.menu.state'] === 7) {
             if (!gptop || !gpbottom || !URCont || !leaderboard) return;
