@@ -1540,30 +1540,23 @@ function renderSlots() {
             currentErrorValue = data.hitErrors[tempHitErrorArrayLength - 1];
             avgHitError.style.transform = `translateX(${(tempAvg / 2) * 3.3}px)`;
 
-            for (let c = 0; c < 200; c++) {
-                if ((tempHitErrorArrayLength % 200) === ((c + 1) % 200)) {
-                    tick[c].style.transform = `translateX(${tickPos}px)`;
-                    tick[c].style.transition = `opacity ease 300ms`;
+            const tick = document.createElement("div");
+            tick.id = `tick${tempHitErrorArrayLength}`;
+            tick.setAttribute("class", "tick");
+            tick.style.transform = `translateX(${tickPos}px)`;
+            document.getElementById("URTCont").appendChild(tick);
 
-                    if (currentErrorValue >= -(error_h300) && currentErrorValue <= error_h300) {
-                        tick[c].style.backgroundColor = 'rgba(134, 211, 255, 1)';
-                    }
-                    else if (currentErrorValue >= -(error_h100) && currentErrorValue <= error_h100) {
-                        tick[c].style.backgroundColor = 'rgba(136, 255, 134, 1)';
-                    }
-                    else {
-                        tick[c].style.backgroundColor = 'rgba(255, 213, 134, 1)';
-                    }
-
-                    const s = document.querySelectorAll("[id^=tick]")[c].style;
-                    s.opacity = 1;
-                    setTimeout(fade, 1500);
-                    function fade() {
-                        s.opacity = 0;
-                        s.transition = `opacity ease 4s`;
-                    }
-                }
+            if (currentErrorValue >= -(error_h300) && currentErrorValue <= error_h300) {
+                tick.style.backgroundColor = 'rgba(134, 211, 255, 1)';
+            } else if (currentErrorValue >= -(error_h100) && currentErrorValue <= error_h100) {
+                tick.style.backgroundColor = 'rgba(136, 255, 134, 1)';
+            } else {
+                tick.style.backgroundColor = 'rgba(255, 213, 134, 1)';
             }
+
+            setTimeout(() => { tick.style.opacity = 1; tick.style.transition = `opacity ease 300ms`; }, 1);
+            setTimeout(() => { tick.style.opacity = 0; tick.style.transition = `opacity ease 4s`; }, 1001);
+            setTimeout(() => { document.getElementById("URTCont").removeChild(tick); }, 4001);
         }
     }
 
