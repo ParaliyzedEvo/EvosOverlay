@@ -1636,17 +1636,11 @@ function renderSlots() {
         PlayerCR.innerHTML = '#0';
     }
 
-    if (cache['ColorSet'] === `API`) {
+    if (cache['ColorSet'] === 'API') {
         if (userData.error === null || LocalNameData === cache['LocalNameData'] || LocalNameData === `Alayna` || userData.id === `Alayna`) {
             avatarColor = {
-                "hsl1": [
-                    0.5277777777777778,
-                    0
-                ],
-                "hsl2": [
-                    0.5277777777777778,
-                    0
-                ]
+                "HSLVibrant": [0.5277777777777778, 0],
+                "HSLLightVibrant": [0.5277777777777778, 0]
             }
         } else {
             avatarColor = await postUserID(userData.id);
