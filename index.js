@@ -1636,13 +1636,20 @@ function renderSlots() {
         PlayerCR.innerHTML = '#0';
     }
 
-    if (cache['ColorSet'] === 'API') {
-        if (cache['CustomIDSet'] !== "" && cache['CustomIDColor']) {
-        avatarColor = await postCustomID(cache['CustomIDSet'].replace("/", "+"));
+    if (cache['ColorSet'] === `API`) {
+        if (userData.error === null || LocalNameData === cache['LocalNameData'] || LocalNameData === `Alayna` || userData.id === `Alayna`) {
+            avatarColor = {
+                "hsl1": [
+                    0.5277777777777778,
+                    0
+                ],
+                "hsl2": [
+                    0.5277777777777778,
+                    0
+                ]
+            }
         } else {
-        avatarColor = userData.id !== `12351533`
-            ? await postUserID(userData.id)
-            : await postDefaultID(`${cache['server']}+${cache['profile.id']}`);
+            avatarColor = await postUserID(userData.id);
         }
 
         if (avatarColor) {
