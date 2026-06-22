@@ -360,16 +360,6 @@
 	z-index: 2;
 }
 
-#graph100,
-#graph50,
-#graph0,
-#graphSB {
-	position: relative;
-	width: 380px;
-	height: 8px;
-	transition: ease 300ms;
-	overflow: hidden;
-}
 #graph100 {
 	background-color: rgba(0, 30, 0, 0.8);
 }
@@ -754,18 +744,6 @@
 
 #graphkatu {
 	background-color: rgba(0, 25, 35, 0.8);
-}
-
-#graphkatu,
-#graph100,
-#graph50,
-#graph0,
-#graphSB {
-	position: relative;
-	width: 380px;
-	height: 8px;
-	transition: ease 300ms;
-	overflow: hidden;
 }
 
 #katuCont {
