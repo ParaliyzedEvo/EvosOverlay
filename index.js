@@ -998,8 +998,8 @@ function renderSlots() {
 
         mapBG.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, ${cachedim}), rgba(0, 0, 0, ${cachedim})), url("http://${window.socket.host}/files/beatmap/${Folder}/${Img}")`;
 
-        combo_wrapper.style.transform = `translateX(${cache['beatmap.stats.od.converted'] * 12.5 - 97}px)`;
-        pp_wrapper.style.transform = `translateX(-${cache['beatmap.stats.od.converted'] * 12.5 - 97}px)`;
+        combo_wrapper.style.transform = `translateX(${cache['beatmap.stats.od.converted'] * 12.5 - 107}px)`;
+        pp_wrapper.style.transform = `translateX(-${cache['beatmap.stats.od.converted'] * 12.5 - 107}px)`;
 
         if (cache['data.menu.state'] === 2 || cache['data.menu.state'] === 7) {
             if (!gptop || !gpbottom || !URCont || !leaderboard) return;
