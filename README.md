@@ -42,10 +42,10 @@ No new preview for now :v
 
 ## Star History
 
-<a href="https://www.star-history.com/#ParaliyzedEvo/EvosOverlay&type=date&legend=top-left">
+<a href="https://www.star-history.com/?type=date&legend=top-left&repos=ParaliyzedEvo%2FEvosOverlay">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ParaliyzedEvo/SonotaOverlay&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ParaliyzedEvo/SonotaOverlay&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ParaliyzedEvo/SonotaOverlay&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ParaliyzedEvo/EvosOverlay&type=date&theme=dark&legend=top-left&sealed_token=63_H9NqysMCH6yj0EfDGVNfQ2kdDo1yrvZMtlc2aKw2ZYyMVCaas4KjDa2TtaCa-RQ7a8cUIq-x1ZsvmolvpiEAf9Adf5q7soaIA43jrn00u29vabtCO-g" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ParaliyzedEvo/EvosOverlay&type=date&legend=top-left&sealed_token=63_H9NqysMCH6yj0EfDGVNfQ2kdDo1yrvZMtlc2aKw2ZYyMVCaas4KjDa2TtaCa-RQ7a8cUIq-x1ZsvmolvpiEAf9Adf5q7soaIA43jrn00u29vabtCO-g" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ParaliyzedEvo/EvosOverlay&type=date&legend=top-left&sealed_token=63_H9NqysMCH6yj0EfDGVNfQ2kdDo1yrvZMtlc2aKw2ZYyMVCaas4KjDa2TtaCa-RQ7a8cUIq-x1ZsvmolvpiEAf9Adf5q7soaIA43jrn00u29vabtCO-g" />
  </picture>
 </a>
