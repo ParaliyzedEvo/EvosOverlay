@@ -42,10 +42,13 @@ No new preview for now :v
 
 ## Star History
 
-<a href="https://www.star-history.com/?type=date&legend=top-left&repos=ParaliyzedEvo%2FEvosOverlay">
+<a href="https://www.star-history.com/?repos=Paraliyzedevo%2FEvosOverlay&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ParaliyzedEvo/EvosOverlay&type=date&theme=dark&legend=top-left&sealed_token=63_H9NqysMCH6yj0EfDGVNfQ2kdDo1yrvZMtlc2aKw2ZYyMVCaas4KjDa2TtaCa-RQ7a8cUIq-x1ZsvmolvpiEAf9Adf5q7soaIA43jrn00u29vabtCO-g" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ParaliyzedEvo/EvosOverlay&type=date&legend=top-left&sealed_token=63_H9NqysMCH6yj0EfDGVNfQ2kdDo1yrvZMtlc2aKw2ZYyMVCaas4KjDa2TtaCa-RQ7a8cUIq-x1ZsvmolvpiEAf9Adf5q7soaIA43jrn00u29vabtCO-g" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=Paraliyzedevo/EvosOverlay&type=date&theme=dark&legend=top-left&sealed_token=KzOF0DVipN5811ONmLOfft5k8YmdMC3kTnW49BFPNyMV7Tfgi5E7IdBYuQkuVx9QPNwD035juJUqQclIhY2NkwpoKwToRCwuPV_G-aRtmkVxihfc5nxfGg" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=Paraliyzedevo/EvosOverlay&type=date&legend=top-left&sealed_token=KzOF0DVipN5811ONmLOfft5k8YmdMC3kTnW49BFPNyMV7Tfgi5E7IdBYuQkuVx9QPNwD035juJUqQclIhY2NkwpoKwToRCwuPV_G-aRtmkVxihfc5nxfGg" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=Paraliyzedevo/EvosOverlay&type=date&legend=top-left&sealed_token=KzOF0DVipN5811ONmLOfft5k8YmdMC3kTnW49BFPNyMV7Tfgi5E7IdBYuQkuVx9QPNwD035juJUqQclIhY2NkwpoKwToRCwuPV_G-aRtmkVxihfc5nxfGg" />
+ </picture>
+</a>
    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ParaliyzedEvo/EvosOverlay&type=date&legend=top-left&sealed_token=63_H9NqysMCH6yj0EfDGVNfQ2kdDo1yrvZMtlc2aKw2ZYyMVCaas4KjDa2TtaCa-RQ7a8cUIq-x1ZsvmolvpiEAf9Adf5q7soaIA43jrn00u29vabtCO-g" />
  </picture>
 </a>
