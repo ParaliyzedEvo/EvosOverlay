@@ -991,12 +991,14 @@ function renderSlots() {
             image.src = `http://${window.socket.host}/files/beatmap/${background_path}`;
         }
 
-        const cachedim = settings.background.dim / 100;
-        const normalizedFolder = cache['folders.beatmap'].replace(/\\/g, "/");
-        const Folder = normalizedFolder.split("/").map(encodeURIComponent).join("/");
-        const Img = cache['files.background'];
+        if (cache['folders.beatmap'] && cache['files.background']) {
+            const cachedim = settings.background.dim / 100;
+            const normalizedFolder = cache['folders.beatmap'].replace(/\\/g, "/");
+            const Folder = normalizedFolder.split("/").map(encodeURIComponent).join("/");
+            const Img = cache['files.background'];
 
-        mapBG.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, ${cachedim}), rgba(0, 0, 0, ${cachedim})), url("http://${window.socket.host}/files/beatmap/${Folder}/${Img}")`;
+            mapBG.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, ${cachedim}), rgba(0, 0, 0, ${cachedim})), url("http://${window.socket.host}/files/beatmap/${Folder}/${Img}")`;
+        }
 
         combo_wrapper.style.transform = `translateX(${cache['beatmap.stats.od.converted'] * 12.5 - 107}px)`;
         pp_wrapper.style.transform = `translateX(-${cache['beatmap.stats.od.converted'] * 12.5 - 107}px)`;
@@ -1111,7 +1113,7 @@ function renderSlots() {
                             if (i >= playerPosition && playerPosition !== 0 && document.getElementById(`playerslot${i}`)) {
                                 document.getElementById(`playerslot${i}`).style.transform = `translateY(65px)`;
                                 document.getElementById(`playerslot${i}`).style.opacity = `0`;
-                            } else if (cache['play.score'] === 0) {
+                            } else if (cache['play.score'] === 0 && document.getElementById(`playerslot${i}`)) {
                                 document.getElementById(`playerslot${i}`).style.transform = `translateY(0)`;
                                 document.getElementById(`playerslot${i}`).style.opacity = `1`;
                                 document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i}`;
@@ -1123,7 +1125,7 @@ function renderSlots() {
                                 document.getElementById(`playerslot${i}`).style.transform = `translateY(65px)`;
                                 document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i + 1}`;
                                 document.getElementById(`lb_Positions_slot${i}`).setAttribute('class', `positions N${i + 1}`);
-                            } else if (cache['play.score'] === 0) {
+                            } else if (cache['play.score'] === 0 && document.getElementById(`playerslot${i}`)) {
                                 document.getElementById(`playerslot${i}`).style.transform = `translateY(0)`;
                                 document.getElementById(`playerslot${i}`).style.opacity = `1`;
                                 document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i}`;
@@ -1248,9 +1250,9 @@ function renderSlots() {
             else if (cache['play.score'] === 0) { playerPosition = tempSlotLength + 1 }
         }
 
-        if (rankingPanelBG.style.opacity !== 1 && cache['data.menu.state'] === 2 && cache['beatmap.time.live'] >= cache['beatmap.time.lastObject'] + 1000 || cache['data.menu.state'] === 7) {
-            if (!rankingPanelSet) setupRankingPanel();
-        } else if (!(cache['beatmap.time.live'] >= cache['beatmap.time.lastObject'] - 500 && cache['data.menu.state'] === 2)) rankingPanelBG.style.opacity = 0 && deRankingPanel();
+            if (rankingPanelBG.style.opacity !== 1 && cache['data.menu.state'] === 2 && cache['beatmap.time.lastObject'] > 0 && cache['beatmap.time.live'] >= cache['beatmap.time.lastObject'] + 1000 || cache['data.menu.state'] === 7) {
+                if (!rankingPanelSet) setupRankingPanel();
+            } else if (!(cache['beatmap.time.live'] >= cache['beatmap.time.lastObject'] - 500 && cache['data.menu.state'] === 2)) rankingPanelBG.style.opacity = 0 && deRankingPanel();
 
         async function setupRankingPanel() {
             rankingPanelSet = true;
@@ -1341,7 +1343,8 @@ function renderSlots() {
             Top6.style.transform = `translateY(-100px)`;
         }
         if ((cache['data.menu.state'] === 2 && 
-             cache['beatmap.time.live'] >= cache['beatmap.time.lastObject'] + 1000) || 
+            cache['beatmap.time.lastObject'] > 0 &&
+            cache['beatmap.time.live'] >= cache['beatmap.time.lastObject'] + 1000) || 
             cache['data.menu.state'] === 7) {
             if (!rankingPanelSet) setupRankingPanel();
         } else if (cache['data.menu.state'] !== 7) {
