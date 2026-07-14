@@ -6,7 +6,7 @@
     position: absolute;
     font-family: 'Stanley Moon';
     font-size: 50px;
-    color: #a1c9ff;
+    color: #fff;
     bottom: 0;
     right: 10px;
     font-weight: 500;
@@ -23,14 +23,16 @@
 }
 .mods {
 	width: 66px;
-	height: 50px;
+	height: 48px;
 	background-size: 100%;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    border-radius: 6px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+    border-radius: 10px;
     object-fit: cover;
     margin-right: -15px;
+    background-color: #161616;
+    outline: 4px solid #161616;
+    border: 2px solid #ffffff;
 }
 #PlayerFlag {
     width: 60px;
@@ -41,23 +43,32 @@
 }
 #RankingPanel {
 	position: absolute;
-    display: flex;
 	width: 2560px;
 	height: 1440px;
 	top: 0;
 	left: 0;
+	color: white;
+    transition: ease 300ms;
+    z-index: 2;
+    opacity: 0;
+}
+#bgpanel {
+    position: absolute;
+	top: 0;
+	left: 0;
+    width: 2560px;
+	height: 1440px;
+    display: flex;
     align-items: center;
     justify-content: center;
-	color: white;
-    transition: ease 500ms;
     overflow: hidden;
-    z-index: 2;
-    background-color: #050819e6;
+    background-color: #000000e6;
+    backdrop-filter: blur(10px);
 }
 #bgborder {
     width: 97%;
     height: 95%;
-    border: 3px solid #a1c9ff;
+    border: 3px solid #fff;
 }
 #ResultBottom {
     position: absolute;
@@ -130,10 +141,10 @@
     position: absolute;
     left: 20px;
     top: 180px;
-    border: 3px solid #a1c9ff;
+    border: 3px solid #fff;
     padding: 5px 10px 5px 10px;
     font-size: 30px;
-    transition: ease 700ms;
+    transition: ease 700ms, border 0ms;
 }
 #StatsBar {
     position: absolute;
@@ -142,23 +153,24 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    color: #a1c9ff;
+    color: #fff;
     font-weight: 800;
     transition: ease 700ms;
 }
 .LineBar {
     width: 400px;
     height: 30px;
-    border-radius: 50px;
-    border: 3px solid #a1c9ff;
+    border-radius: 5px;
+    border: 3px solid #fff;
     overflow: hidden;
+    transition: border 0ms;
 }
 .GlowBar {
     height: 30px;
-    border-radius: 30px;
-    background-color: #a1c9ff;
+    /* border-radius: 5px; */
+    background-color: #fff;
     overflow: hidden;
-    transition: ease 700ms;
+    transition: ease 700ms, background 0ms;
 }
 .StatsBL {
     display: flex;
@@ -170,6 +182,7 @@
     font-size: 25px;
     color: white;
     margin-left: 15px;
+    mix-blend-mode: difference;
 }
 #ResultMiddle {
     position: absolute;
@@ -182,10 +195,9 @@
 #MiddleBar {
     width: 5px;
     height: 460px;
-    background-color: #a1c9ff;
+    background-color: #fff;
     border-radius: 10px;
-    transition: ease 700ms;
-    transition-delay: 500ms;
+    transition: ease 700ms 500ms, background 0ms;
 }
 #PContainer {
     display: flex;
@@ -307,6 +319,7 @@
 }
 .topRanking {
     position: relative;
+    width: 30px;
     bottom: 10px;
     font-size: 50px;
 }
@@ -338,6 +351,7 @@
 	font-size: 30px;
 	color: white;
     font-weight: 800;
+    /* display: none; */
 }
 
 #createdAt {
@@ -348,39 +362,23 @@
     font-weight: 800;
 }
 
-/* Mods Color */
-.EZ, .NF, .HT, .DC, .NR {
-    background-color: #5cff7a;
-    box-shadow: 0 4px 0 #2f8f47;
+#adbanner {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 60px;
+    width: 500px;
+    height: 700px;
+    border: 5px white dashed;
 }
-.HR, .SD, .PF, .FI, .HD, .CO, .FL, .BL, .ST, .AC {
-    background-color: #ff5a5a;
-    box-shadow: 0 4px 0 #a33636;
-}
-.DT, .NC {
-    background-color: #b07cff;
-    box-shadow: 0 4px 0 #6a4aa3;
-}
-.AT, .CN, .RX, .AP, .SO {
-    background-color: #6ec6ff;
-    box-shadow: 0 4px 0 #3b7ea6;
-}
-.TP, .DA, .CL, .RD, .MR, .AL, .SW, .SG, .IN, .CS, .HO {
-    background-color: #4bffd8;
-    box-shadow: 0 4px 0 #2f9e87;
-}
-.K1, .K2, .K3, .K4, .K5, .K6, .K7, .K8, .K9, .K10 {
-    background-color: #3ad1b0;
-    box-shadow: 0 4px 0 #24806c;
-}
-.TR, .WG, .SI, .GR, .DF, .WU, .WD, .TC, .BR, .AD,
-.FF, .MU, .NS, .MG, .RP, .AS, .FR, .BU, .SY, .DP {
-    background-color: #ffd966;
-    box-shadow: 0 4px 0 #a68b3a;
-}
-.NM {
-    background-color: #888888;
-    box-shadow: 0 4px 0 #555555;
+
+#adimg {
+    width: 95%;
+    height: 96%;
+    background-image: url(../static/adbanner/adimg.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
 }
 
 /* Ranking Color */

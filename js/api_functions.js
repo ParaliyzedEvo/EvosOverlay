@@ -1,329 +1,101 @@
-let socket = null;
-let apiKey = null;
-let profileColor = null;
+const API_BASE = "http://localhost:8080/api"
 
-const CrashReportDebug = document.getElementById('CrashReportDebug');
-const CrashReason = document.getElementById('CrashReason');
-const API_BASE = 'https://osu.ppy.sh/api';
-
-export function initApiSocket(ws) {
-  socket = ws;
-  setupTosuConnectionHandlers();
-}
-
-function setupTosuConnectionHandlers() {
-  const attachHandlers = () => {
-    if (socket.sockets?.['/websocket/v2']) {
-      const ws = socket.sockets['/websocket/v2'];
-      
-      const originalOnOpen = ws.onopen;
-      ws.onopen = function(event) {
-        if (originalOnOpen) originalOnOpen.call(this, event);
-        hideTosuWarning();
-      };
-
-      const originalOnClose = ws.onclose;
-      ws.onclose = function(event) {
-        showTosuWarning();
-        if (originalOnClose) originalOnClose.call(this, event);
-        setTimeout(attachHandlers, 100);
-      };
-
-      if (ws.readyState === WebSocket.OPEN) {
-        hideTosuWarning();
-      }
-    } else {
-      setTimeout(attachHandlers, 100);
+export async function getUserDataSet(id, mode) {
+    try {
+        return (
+            await axios.get(`${API_BASE}/users/${id}/${mode}`, {
+                baseURL: API_BASE,
+            })
+        )["data"];
+    } catch (error) {
+        console.error(error);
+        return { error: true };
     }
-  };
-  
-  attachHandlers();
 }
-
-function showTosuWarning() {
-  CrashReportDebug.classList.remove('crashpop');
-  CrashReason.innerHTML = 
-    `The tosu server socket is currently closed (or the program has crashed). Please relaunch tosu!<br><br>
-    If this error still exists, please contact the overlay developer or tosu developer.`;
-}
-
-function hideTosuWarning() {
-  if (!apiKey) {
-    showCredentialsWarning();
-  } else {
-    CrashReportDebug.classList.add('crashpop');
-  }
-}
-
-export async function setOsuCredentials(key) {
-  apiKey = key;
-  
-  if (key) {
-    console.log('osu! API key set');
-    hideCredentialsWarning();
-  } else {
-    console.log('osu! API key not set');
-    showCredentialsWarning();
-  }
-}
-
-export function setprofileColor(color) {
-  profileColor = color;
-}
-
-function showCredentialsWarning() {
-  CrashReportDebug.classList.remove('crashpop');
-  CrashReason.innerHTML = 
-    `To enable API features (user top scores, leaderboards):<br><br>
-    Add your osu! API Key in the overlay settings<br><br>
-    Get your API key at: <a href="https://osu.ppy.sh/p/api" target="_blank" style="color: #a1c9ff;">https://osu.ppy.sh/p/api</a>`;
-}
-
-function hideCredentialsWarning() {
-  CrashReportDebug.classList.add('crashpop');
-  CrashReason.innerHTML = '';
-}
-
-export async function getUserDataSet(username) {
-  if (!apiKey) {
-    console.warn('osu! API key not set');
-    return null;
-  }
-
-  try {
-    const response = await fetch(`${API_BASE}/get_user?k=${apiKey}&u=${encodeURIComponent(username)}&type=string`);
-    if (!response.ok) {
-      console.error('API response not OK:', response.status);
-      return null;
+export async function postUserID(id) {
+    try {
+        let ColorData = null;
+        const response = await axios.get(`${API_BASE}/color/${id}`);
+        ColorData = response.data;
+        return ColorData ? ColorData : { error: true };
+    } catch (error) {
+        console.error(error);
+        return { error: true };
     }
-    
-    const data = await response.json();
-    if (!data || data.length === 0) {
-      console.warn('No user data found for:', username);
-      return null;
-    }
-    
-    const user = data[0];
-    return {
-      id: parseInt(user.user_id),
-      username: user.username,
-      country_code: user.country,
-      statistics: {
-        global_rank: parseInt(user.pp_rank) || 0,
-        country_rank: parseInt(user.pp_country_rank) || 0,
-        pp: parseFloat(user.pp_raw) || 0
-      }
-    };
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    return null;
-  }
 }
 
-export async function getUserTop(userId) {
-  if (!apiKey) {
-    console.warn('osu! API key not set');
-    return null;
-  }
+export async function postCustomID(id) {
+    try {
+        let ColorData = null;
+        const response = await axios.get(`${API_BASE}/color/customid/${id}`);
+        ColorData = response.data;
+        return ColorData ? ColorData : { error: true };
+    } catch (error) {
+        console.error(error);
+        return { error: true };
+    }
+}
 
-  try {
-    const response = await fetch(`${API_BASE}/get_user_best?k=${apiKey}&u=${userId}&limit=100&type=id`);
-    if (!response.ok) return null;
-    
-    const data = await response.json();
-    if (!data || data.length === 0) return null;
-    
-    return data.map(score => ({
-      beatmap_id: parseInt(score.beatmap_id),
-      pp: parseFloat(score.pp),
-      mods_id: convertModsNumberToString(parseInt(score.enabled_mods)),
-      rank: score.rank,
-      ended_at: score.date,
-      legacy_score_id: parseInt(score.score_id)
-    }));
-  } catch (error) {
-    console.error('Error fetching user top scores:', error);
-    return null;
-  }
+export async function postDefaultID(id) {
+    try {
+        let ColorData = null;
+        const response = await axios.get(`${API_BASE}/color/default/${id}`);
+        ColorData = response.data;
+        return ColorData ? ColorData : { error: true };
+    } catch (error) {
+        console.error(error);
+        return { error: true };
+    }
+}
+
+export async function getUserTop(bestid, mode) {
+    try {
+        return (
+            await axios.get(`/users/${bestid}/best/${mode}`, {
+                baseURL: API_BASE,
+            })
+        )["data"];
+    } catch (error) {
+        console.error(error);
+        return { error: true };
+    }
+}
+
+export async function getMapScores(beatmapID, mode) {
+    try {
+        const data = (
+            await axios.get(`/beatmaps/${beatmapID}/${mode}`, {
+                baseURL: API_BASE,
+            })
+        )["data"];
+        return data.length !== 0 ? data : null;
+    } catch (error) {
+        console.error(error);
+        return { error: true };
+    }
 }
 
 export async function getMapDataSet(beatmapID) {
-  if (!apiKey || !beatmapID || beatmapID === 'undefined') {
-    return null;
-  }
-  
-  try {
-    const response = await fetch(`${API_BASE}/get_beatmaps?k=${apiKey}&b=${beatmapID}`);
-    if (!response.ok) return null;
-    
-    const data = await response.json();
-    if (!data || data.length === 0) return null;
-    
-    const beatmap = data[0];
-    return {
-      id: parseInt(beatmap.beatmap_id),
-      beatmapset_id: parseInt(beatmap.beatmapset_id),
-      difficulty_rating: parseFloat(beatmap.difficultyrating),
-      version: beatmap.version
-    };
-  } catch (error) {
-    console.error('Error fetching beatmap:', error);
-    return null;
-  }
-}
-
-function mapScore(score, gameMode) {
-  const count_300 = parseInt(score.count300);
-  const count_100 = parseInt(score.count100);
-  const count_50 = parseInt(score.count50);
-  const count_miss = parseInt(score.countmiss);
-  const count_geki = parseInt(score.countgeki);
-  const count_katu = parseInt(score.countkatu);
-  let accuracy = 0;
-
-  switch (gameMode) {
-    case 0:
-      const t = count_300 + count_100 + count_50 + count_miss;
-      accuracy = t > 0 ? ((count_300*300 + count_100*100 + count_50*50) / (t*300)) * 100 : 0;
-      break;
-    case 1:
-      const tt = count_300 + count_100 + count_miss;
-      accuracy = tt > 0 ? ((count_300 + count_100*0.5) / tt) * 100 : 0;
-      break;
-    case 2:
-      const tc = count_300 + count_100 + count_50 + count_katu + count_miss;
-      accuracy = tc > 0 ? ((count_300 + count_100 + count_50) / tc) * 100 : 0;
-      break;
-    case 3:
-      const tm = count_geki + count_300 + count_katu + count_100 + count_50 + count_miss;
-      accuracy = tm > 0 ? ((count_geki*300 + count_300*300 + count_katu*200 + count_100*100 + count_50*50) / (tm*300)) * 100 : 0;
-      break;
-  }
-
-  return {
-    user_id: parseInt(score.user_id), username: score.username,
-    score: parseInt(score.score), max_combo: parseInt(score.maxcombo),
-    count_300, count_100, count_50, count_miss, count_geki, count_katu,
-    rank: score.rank, pp: parseFloat(score.pp),
-    mods: convertModsNumberToString(parseInt(score.enabled_mods)),
-    acc: accuracy, created_at: score.date
-  };
-}
-
-export async function getMapScores(beatmapID, gameMode = 0) {
-  if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') return null;
-  try {
-    const response = await fetch(`${API_BASE}/get_scores?k=${apiKey}&b=${beatmapID}&limit=100`);
-    if (!response.ok) return null;
-    const data = await response.json();
-    if (!data || data.length === 0) return null;
-    return data.map(score => mapScore(score, gameMode));
-  } catch (error) { console.error(error); return null; }
-}
-
-export async function getModsScores(beatmapID, modsNumber, gameMode = 0) {
-  if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') return null;
-  try {
-    const response = await fetch(`${API_BASE}/get_scores?k=${apiKey}&b=${beatmapID}&limit=100&mods=${modsNumber}`);
-    if (!response.ok) return null;
-    const data = await response.json();
-    if (!data || data.length === 0) return null;
-    return data.map(score => mapScore(score, gameMode));
-  } catch (error) { console.error(error); return null; }
-}
-
-export function postUserID() {
-  try {
-    const hex = profileColor;
-
-    if (!hex || hex.length !== 8) {
-      return {
-        HSLVibrant: [0.5277777777777778, 0],
-        HSLLightVibrant: [0.5277777777777778, 0]
-      };
+    try {
+        return (
+            await axios.get(`/beatmaps/${beatmapID}`, {
+                baseURL: API_BASE,
+            })
+        )["data"];
+    } catch (error) {
+        console.error(error);
+        return { error: true };
     }
-
-    const rgb = hex.slice(2);
-    const r = parseInt(rgb.slice(0, 2), 16) / 255;
-    const g = parseInt(rgb.slice(2, 4), 16) / 255;
-    const b = parseInt(rgb.slice(4, 6), 16) / 255;
-
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    let h = 0, s = 0;
-    const l = (max + min) / 2;
-
-    if (max !== min) {
-      const d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-      switch (max) {
-        case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
-        case g: h = ((b - r) / d + 2) / 6; break;
-        case b: h = ((r - g) / d + 4) / 6; break;
-      }
-    }
-
-    return {
-      HSLVibrant: [h, s],
-      HSLLightVibrant: [h, s * 0.8]
-    };
-  } catch (e) {
-    console.error('Error getting profile color from tosu:', e);
-    return {
-      HSLVibrant: [0.5277777777777778, 0],
-      HSLLightVibrant: [0.5277777777777778, 0]
-    };
-  }
 }
 
-function convertModsNumberToString(modsNumber) {
-  if (modsNumber === 0) return 'NM';
-  
-  const modMap = {
-    1: 'NF',
-    2: 'EZ',
-    8: 'HD',
-    16: 'HR',
-    32: 'SD',
-    64: 'DT',
-    128: 'RX',
-    256: 'HT',
-    512: 'NC',
-    1024: 'FL',
-    2048: 'SO',
-    4096: 'AP',
-    8192: 'PF',
-    16384: '4K',
-    32768: '5K',
-    65536: '6K',
-    131072: '7K',
-    262144: '8K',
-    524288: 'FI',
-    1048576: 'RD',
-    2097152: 'CN',
-    4194304: 'TP',
-    8388608: '9K',
-    16777216: 'CO',
-    33554432: '1K',
-    67108864: '3K',
-    134217728: '2K',
-    268435456: 'V2'
-  };
-
-  let modsString = '';
-  for (const [value, mod] of Object.entries(modMap)) {
-    if (modsNumber & parseInt(value)) {
-      modsString += mod;
+export async function getModsScores(beatmapID, modName) {
+    try {
+        const response = await axios.get(`/beatmaps/${beatmapID}/mods/${modName}`, {
+            baseURL: API_BASE,
+        });
+        return response.data.length !== 0 ? response.data : null;
+    } catch (error) {
+        console.error(error);
+        return null;
     }
-  }
-
-  if (modsString.includes('NC') && modsString.includes('DT')) {
-    modsString = modsString.replace('DT', '');
-  }
-  
-  if (modsString.includes('PF') && modsString.includes('SD')) {
-    modsString = modsString.replace('SD', '');
-  }
-
-  return modsString || 'NM';
 }
